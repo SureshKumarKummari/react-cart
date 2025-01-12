@@ -1,21 +1,20 @@
-// src/context/CartContext.js
 import React, { createContext, useState, useContext } from 'react';
 
-// Create Context
+// Create the Cart Context
 const CartContext = createContext();
 
-// Provider Component
+// CartProvider component to wrap around the app and provide state
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
-  const [showCart, setShowCart] = useState(false); // Default cart is hidden
+  const [cart, setCart] = useState([]); // Cart holds the items
+  const [showCart, setShowCart] = useState(false); // State to toggle cart visibility
 
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
 
   const clearCart = () => {
-    setCart([]);
-    setShowCart(false); // Optionally hide cart when cleared
+    setCart([]); // Clear the cart
+    setShowCart(false); // Optionally close the cart after clearing
   };
 
   return (

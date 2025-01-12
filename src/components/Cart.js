@@ -1,27 +1,28 @@
-// src/components/Cart.js
 import React from 'react';
 import { useCartContext } from '../context/CartContext';
 
 function Cart() {
-  const { cart, clearCart, showCart } = useCartContext();
+  const { cart, clearCart } = useCartContext(); // Access cart and clearCart function
 
-  // If showCart is false, don't render the Cart component
-  if (!showCart) return null; 
+  if (cart.length === 0) {
+    return (
+      <div className="cart-container">
+        <h2>Your Cart is Empty</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="cart-container">
       <h2>Your Cart</h2>
-      {cart.length === 0 ? (
-        <p>No items in cart</p>
-      ) : (
-        cart.map((item, index) => (
-          <div key={index}>
-            <h3>{item.name}</h3>
-            <p>Price: ${item.price}</p>
-          </div>
-        ))
-      )}
-      {cart.length > 0 && <button onClick={clearCart}>Clear Cart</button>}
+      {cart.map((item, index) => (
+        <div key={index}>
+          <h3>{item.name}</h3>
+          <p>Price: ${item.price}</p>
+          <p>Quantity: {item.quantity}</p>
+        </div>
+      ))}
+      <button onClick={clearCart}>Clear Cart</button>
     </div>
   );
 }
